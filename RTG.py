@@ -65,9 +65,9 @@ class RandomTeamGenerator:
     for team in teams:
       team += ['X'] * (max_len - len(team))
 
-    result_text = "Team 1:\n" + ", ".join(teams[0]) + "\n\n"
-    result_text += "Team 2:\n" + ", ".join(teams[1]) + "\n\n"
-    result_text += "Team 3:\n" + ", ".join(teams[2])
+    result_text = "Team 1 (OVR " + str(teams_weights[0]) + "):\n" + ", ".join(teams[0]) + "\n\n"
+    result_text += "Team 2 (OVR " + str(teams_weights[1]) + "):\n" + ", ".join(teams[1]) + "\n\n"
+    result_text += "Team 3 (OVR " + str(teams_weights[2]) + "):\n" + ", ".join(teams[2])
     
     self.result_label.config(text=result_text)
 
