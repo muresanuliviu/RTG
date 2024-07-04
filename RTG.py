@@ -51,13 +51,23 @@ class RandomTeamGenerator:
     random.shuffle(names2)
     random.shuffle(names3)
     teams = [[], [], []]
+    weights = [(3, name) for name in names1] + [(2, name) for name in names2] + [(1, name) for name in names3]
+    teams_weights = [0, 0, 0]
     
-    for i, name in enumerate(names1+names2+names3):
-        teams[i % 3].append(name)
-    
-    result_text = "Team 1:\n" + ", ".join(teams[0]) + "\n\n"
-    result_text += "Team 2:\n" + ", ".join(teams[1]) + "\n\n"
-    result_text += "Team 3:\n" + ", ".join(teams[2])
+    for weight, name in weights:
+      min_index = teams_weights.index(min(teams_weights))
+      teams[min_index].append(name)
+      teams_weights[min_index] += weight
+
+    # Fill smaller teams with placeholders
+    len_teams = [len(team) for team in teams]
+    max_len = max(len_teams)
+    for team in teams:
+      team += ['X'] * (max_len - len(team))
+
+    result_text = "Team 1 (OVR " + str(teams_weights[0]) + "):\n" + ", ".join(teams[0]) + "\n\n"
+    result_text += "Team 2 (OVR " + str(teams_weights[1]) + "):\n" + ", ".join(teams[1]) + "\n\n"
+    result_text += "Team 3 (OVR " + str(teams_weights[2]) + "):\n" + ", ".join(teams[2])
     
     self.result_label.config(text=result_text)
 
