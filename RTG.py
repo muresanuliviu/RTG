@@ -52,12 +52,12 @@ class RandomTeamGenerator:
     random.shuffle(names3)
     teams = [[], [], []]
     weights = [(3, name) for name in names1] + [(2, name) for name in names2] + [(1, name) for name in names3]
-    new_weights = [0, 0, 0]
+    teams_weights = [0, 0, 0]
     
     for weight, name in weights:
-      min_index = new_weights.index(min(new_weights))
+      min_index = teams_weights.index(min(teams_weights))
       teams[min_index].append(name)
-      new_weights[min_index] += weight
+      teams_weights[min_index] += weight
 
     # Fill smaller teams with placeholders
     len_teams = [len(team) for team in teams]
